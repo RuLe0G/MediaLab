@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaLab"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="431.6" Width="567.2" WindowStyle="ToolWindow"   
+    WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,-0.2,-1.8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="350*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="open" Content="open" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click">
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <SoundPlayerAction Source="Resources/hitmarker.wav" />
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <MediaElement x:Name="mpe" HorizontalAlignment="Left" Height="300" Margin="5,20,0,0" VerticalAlignment="Top" Width="550" LoadedBehavior="Manual"/>
+        <Slider x:Name="timeline" Margin="5,325,114,0"  VerticalAlignment="Top" Height="20" Thumb.DragCompleted="timeline_ValueChanged"/>
+        <Button x:Name="Play" Content="play" HorizontalAlignment="Left" Margin="10,345,0,-17" VerticalAlignment="Top" Width="96" Click="Play_Click" Height="25" Grid.RowSpan="2"/>
+        <Button x:Name="Stop" Content="Stop" HorizontalAlignment="Left" Margin="221,345,0,-17" VerticalAlignment="Top" Width="115" Click="Stop_Click" Height="25" Grid.RowSpan="2" />
+        <Button x:Name="Pause" Content="Pause" HorizontalAlignment="Left" Margin="111,345,0,-17" VerticalAlignment="Top" Width="105" Click="Pause_Click" Height="25" Grid.RowSpan="2"/>
+        <Label x:Name="lb" Content="00:00:00/00:00:00" HorizontalAlignment="Left" Margin="452,325,0,0" VerticalAlignment="Top" Width="103" Height="24"/>
+        <Slider x:Name="volume" HorizontalAlignment="Left" Margin="425,350,0,0" VerticalAlignment="Top" Width="126" Thumb.DragCompleted="Volume_DragCompleted" Grid.RowSpan="2"/>
+        <Label Content="Volume:" HorizontalAlignment="Left" Margin="341,345,0,-19" VerticalAlignment="Top" Width="79" Height="27" Grid.RowSpan="2"/>
+
     </Grid>
 </Window>
