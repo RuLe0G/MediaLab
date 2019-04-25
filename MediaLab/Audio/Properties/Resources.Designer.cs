@@ -8,9 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.IO;
-
-namespace MediaLab.Properties
+namespace Audio.Properties
 {
 
 
@@ -26,7 +24,7 @@ namespace MediaLab.Properties
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources
     {
-        internal static Stream hitmarker;
+
         private static global::System.Resources.ResourceManager resourceMan;
 
         private static global::System.Globalization.CultureInfo resourceCulture;
@@ -46,7 +44,7 @@ namespace MediaLab.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MediaLab.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Audio.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
