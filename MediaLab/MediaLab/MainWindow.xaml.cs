@@ -41,11 +41,16 @@ namespace MediaLab
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            timeline.Value = (int)mpe.Position.TotalMilliseconds;
+            try
+            {
+                timeline.Value = (int)mpe.Position.TotalMilliseconds;
 
-            lb.Content = ((int)mpe.Position.TotalSeconds + "/" + (int)mpe.NaturalDuration.TimeSpan.TotalSeconds);
-            
-             
+                lb.Content = ((string)mpe.Position.ToString("hh':'mm':'ss") + "/" + (string)mpe.NaturalDuration.TimeSpan.ToString("hh':'mm':'ss"));
+            }
+            catch 
+            {
+
+            }               
 
             //lb.Content = (((int)mpe.Position.TotalSeconds + "/" + mpe.NaturalDuration);
         }
@@ -58,6 +63,8 @@ namespace MediaLab
             mpe.Position = ts;
 
         }
+
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

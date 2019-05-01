@@ -8,7 +8,14 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="Open" Content="Open" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="109" Visibility="Visible" Click="Open_Click" Margin="0,0,0,383" Height="37"/>
-        <ListBox x:Name="Spisok" HorizontalAlignment="Left" Height="316" Margin="310,10,0,0" VerticalAlignment="Top" Width="186"/>
-
+        <ListBox x:Name="Spisok" HorizontalAlignment="Left" Height="400" Margin="483,10,0,0" VerticalAlignment="Top" Width="300" SelectionChanged="Spisok_SelectionChanged"/>
+        <Button x:Name="Play" Content="Play" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" Width="75" Click="Play_Click"/>
+        <Button x:Name="Stop" Content="Stop" HorizontalAlignment="Left" Margin="170,118,0,0" VerticalAlignment="Top" Width="75" Click="Stop_Click"/>
+        <Button x:Name="Pause" Content="Pause" HorizontalAlignment="Left" Margin="90,118,0,0" VerticalAlignment="Top" Width="75" Click="Pause_Click"/>
+        <Label x:Name="lb" Content="00:00:00/00:00:00" HorizontalAlignment="Left" Margin="210,37,0,0" VerticalAlignment="Top" Width="103" Height="24"/>
+        <CheckBox x:Name="Rand" Content="Rand" HorizontalAlignment="Left" Margin="385,122,0,0" VerticalAlignment="Top"/>
+        <Slider x:Name="volume" HorizontalAlignment="Left" Margin="94,156,0,0" VerticalAlignment="Top" Width="151" Thumb.DragCompleted="Volume_DragCompleted"/>
+        <Label Content="Volume:" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top" Width="79" Height="27"/>
+        <Slider x:Name="timeline" Thumb.DragCompleted="timeline_ValueChanged" Margin="0,66,315.6,307" ValueChanged="Timeline_ValueChanged_1"/>
     </Grid>
 </Window>
