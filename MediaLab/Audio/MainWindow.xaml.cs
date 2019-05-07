@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Windows.Controls.Primitives;
+using System.Media;
 
 namespace Audio
 {
@@ -26,6 +27,8 @@ namespace Audio
     {
         MediaPlayer player = new MediaPlayer();
         DispatcherTimer Timer = new DispatcherTimer();
+        
+        Dictionary<string, string> list = new Dictionary<string, string>();
 
         public MainWindow()
         {
@@ -33,8 +36,10 @@ namespace Audio
             Timer.Interval = new TimeSpan(0, 0, 0, 1);
             Timer.Tick += new EventHandler(dispatcherTimer_Tick);
             volume.Value = 10;            player.Volume = 1;
+            SystemSounds.Asterisk.Play();
         }
-
+        public int[] x;
+        int i = 0;
         private void Open_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -44,14 +49,26 @@ namespace Audio
 
             foreach (string file in dlg.FileNames)
             {
-
+            
+                string text = file.ToString().Remove(0, 17);
                 //Spisok.Items.Add(dlg.FileName.ToString());
-                Spisok.Items.Add(file.ToString());
+                list.Add(text, file.ToString());
+                Spisok.Items.Add(text);
+                
 
             }
+
+            x = new int[Spisok.Items.Count];
+            zap(ref x);
         }
 
-       
+        public void zap(ref int[] x)
+        {
+            for (int i = 0; i<Spisok.Items.Count; i++)
+            {
+                x[i] = i;
+            }
+        }
 
         private void timeline_ValueChanged(object sender, DragCompletedEventArgs e)
         {
@@ -71,16 +88,16 @@ namespace Audio
             }
             catch
             {
-
+               
             }
 
         }
-
         private void Spisok_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Spisok.SelectedIndex != -1)
             {
-                player.Open(new Uri(Spisok.SelectedItem.ToString(), UriKind.Relative));
+                timeline.Value = 0;
+                player.Open(new Uri(list[Spisok.SelectedItem.ToString()], UriKind.Relative));
                 player.Play();
                 player.MediaOpened += MediaOpened;
                 player.MediaEnded += player_Media_Ended;
@@ -102,21 +119,54 @@ namespace Audio
 
         private void player_Media_Ended(object sender, EventArgs e)
         {
-            if (Spisok.SelectedIndex != (Spisok.Items.Count - 1))
+            if (Rand.IsChecked == false & Spisok.Items.Count>=1)
             {
-                player.Stop();
-                (Spisok.SelectedIndex)++;
-                timeline.Value = 0;
-                player.Play();
+                if (Spisok.SelectedIndex != (Spisok.Items.Count - 1))
+                {
+                    player.Stop();
+                    (Spisok.SelectedIndex)++;
+                    timeline.Value = 0;
+                    player.Play();
+                }
+                else
+                {
+                    timeline.Value = 0;
+                    player.Stop();
+                    Spisok.SelectedIndex = -1;
+                    Timer.Stop();
+                }
             }
             else
             {
-                timeline.Value = 0;
-                player.Stop();
-                Spisok.SelectedIndex = -1;
-                Timer.Stop();
+                if (i < Spisok.Items.Count)
+                {
+                    Spisok.SelectedIndex = x[i];
+                    i++;
+
+                }
+            //Gog:
+                
+                //Random random = new Random();
+                //int i = random.Next(0, Spisok.Items.Count);
+                //if (i == Spisok.SelectedIndex)
+                //{
+                //    goto Gog;
+                //}
+                //else
+                //{
+                //    Spisok.SelectedIndex = i;
+                    
+                //}
+
+                
+
             }
         }
+
+
+        
+        
+    
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
@@ -128,11 +178,16 @@ namespace Audio
         {
             player.Pause();
             Timer.Tick -= new EventHandler(dispatcherTimer_Tick);
+            SystemSounds.Asterisk.Play();
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             player.Stop();
+            timeline.Value = 0;
+
+            lb.Content = "00:00:00/00:00:00";
+            SystemSounds.Asterisk.Play();
         }
 
         private void Volume_DragCompleted(object sender, DragCompletedEventArgs e)

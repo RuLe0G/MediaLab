@@ -75,10 +75,19 @@ namespace MediaLab
             mpe.Source = new Uri(dlg.FileName, UriKind.Relative);
             mpe.Volume = 100.0 / 100.0;
             mpe.MediaOpened += mpe_MediaOpened;
-            
+            mpe.MediaEnded += mpe_Media_Ended;
+
             mpe.Play();
             Timer.Start();
         }
+
+        private void mpe_Media_Ended(object sender, RoutedEventArgs e)
+        {
+            mpe.Stop();
+            player.Stop();
+            timeline.Value = 0;
+        }
+
         private void mpe_MediaOpened(object sender, RoutedEventArgs e)
         {     //где timeline – компонент типа Slider
             sp.Play();
@@ -100,8 +109,13 @@ namespace MediaLab
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            mpe.Stop();
             SystemSounds.Asterisk.Play();
+            timeline.Value = 0;
+            lb.Content = "00:00:00/00:00:00";
+            TimeSpan ts = new TimeSpan(0, 0, 0, 0, 0);
+            mpe.Position = ts;
+            player.Position = ts;
+            mpe.Stop();
         }
 
         private void Volume_DragCompleted(object sender, DragCompletedEventArgs e)
